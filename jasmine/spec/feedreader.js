@@ -13,6 +13,7 @@
  const menuIcon = document.querySelector('.menu-icon-link');
  const entryLink = document.querySelector('.entry-link');
 
+
 $(function() {
     /* This is our first test suite - a test suite just contains
     * a related set of tests. This suite is all about the RSS
@@ -83,12 +84,15 @@ it('menu hidden by default', function() {
           */
 
 //
-
-      menuIcon.click();
+it('menu changes visibilty when the menu icon is clicked', function(){
+  menuIcon.click();
       expect(body.className).not.toContain("menu-hidden");
 
       menuIcon.click();
       expect(body.className).toContain("menu-hidden");
+
+});
+    
 
 // At first I had all this but apparently this was too complicated lol
 /*                
@@ -149,18 +153,17 @@ describe('The menu', function() {
          */
 
 beforeEach(function(done) {
-      
-        value = 0;
-        done();
-      
-    });
+       loadFeed(0, function () {
+                done();
+            });
+       });
 
-    it("there is at least a single .entry element witin .feed container", function(done) {
-      expect(value).toBeGreaterThan(0);
-      done();
+    it("there is at least a single .entry element witin .feed container", function() {
+        
+      expect(feed.innerHTML.length).toBeGreaterThan(0);
     });
-
-         });
+    });
+         
 
     /* TODO: Write a new test suite named "New Feed Selection" */
 
@@ -171,16 +174,17 @@ beforeEach(function(done) {
 
 describe('New Feed Selection', function() {
 
-
+let oldFeed;
 beforeEach(function() {
 
 loadFeed(0, function() {
 
-let oldFeed = entryLink.innerHTML;
+let oldFeed = feed.innerHTML;
+
 
 loadFeed(1, function() {
 
-let newFeed = entryLink.innerHTML;
+
 
 done();
 
@@ -191,7 +195,7 @@ done();
 });
 
 it('the feeds are different and content changes', function () {
-
+let newFeed = feed.innerHTML;
 expect(oldFeed).not.toEqual(newFeed);
 
 });
