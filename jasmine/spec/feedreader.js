@@ -71,7 +71,7 @@ $(function() {
 
         it('menu hidden by default', function() {
             let bodyclass = body.className;
-            expect(body.className).toContain("menu-hidden");
+            expect($('body').hasClass('menu-hidden')).toBe(true);
         });
 
 
@@ -86,10 +86,10 @@ $(function() {
         //
         it('menu changes visibilty when the menu icon is clicked', function() {
             menuIcon.click();
-            expect(body.className).not.toContain("menu-hidden");
+            expect($('body').hasClass('menu-hidden')).toBe(false);
 
             menuIcon.click();
-            expect(body.className).toContain("menu-hidden");
+            expect($('body').hasClass('menu-hidden')).toBe(true);
 
         });
     });
